@@ -1,19 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+// Importing jobs controller methods
 
-// @route   GET api/jobs
-// @desc    Get all users jobs
+const { getJobs } = require('../controllers/jobsController');
 
-router.get('/jobs', (req, res) => {
-  return res.status(200).json({
-    success: true, 
-    msg: 'Show all jobs'
-  });
-});
-
-
+router.route('/jobs').get(getJobs);
 
 module.exports = router;
-
-
