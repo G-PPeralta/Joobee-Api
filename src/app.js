@@ -11,6 +11,16 @@ dotenv.config({ path: './config.env' });
 // Connecting to database
 connectDatabase();
 
+// Creating own middleware
+const middleware = (req, res, next) => {
+  console.log('Hello from the middleware');
+
+  req.user = "John Doe";
+  next();
+};
+
+app.use(middleware);
+
 // Importing routes
 const jobs = require('./routes/jobs');
 
