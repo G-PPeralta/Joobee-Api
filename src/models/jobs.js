@@ -57,7 +57,7 @@ const jobSchema = new mongoose.Schema({
     required: true,
     enum: {
       values: [
-        'Bachelor',
+        'Bachelors',
         'Masters',
         'PhD'
       ],
