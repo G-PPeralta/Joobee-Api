@@ -4,7 +4,9 @@
   "description": "api for a job plataform",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "prod": "SET NODE_ENV=production & nodemon src/app.js"
   },
   "repository": {
     "type": "git",
