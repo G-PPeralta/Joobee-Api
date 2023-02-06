@@ -3,10 +3,12 @@ const router = express.Router();
 
 // Importing jobs controller methods
 
-const { getJobs, newJob } = require('../controllers/jobsController');
+const { getJobs, newJob, getJobsInRadius } = require('../controllers/jobsController');
 
 router.route('/jobs').get(getJobs);
 
 router.route('/jobs/new').post(newJob);
+
+router.route('/jobs/:zipcode/:distance').get(getJobsInRadius);
 
 module.exports = router;
