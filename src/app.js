@@ -9,6 +9,14 @@ const errorMiddleware = require('./middlewares/errors');
 // Setting up config.env file variables
 dotenv.config({ path: './config.env' });
 
+// Handling uncaught exceptions
+
+process.on('uncaughtException', err => {
+  console.log(`Error: ${err.message}`);
+  console.log('Shutting down the server due to uncaught exception');
+  process.exit(1);
+});
+
 // Connecting to database
 connectDatabase();
 
@@ -25,6 +33,15 @@ app.use('/api/v1', jobs);
 app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT} in ${process.env.NODE_ENV} node.`);
+});
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', err => {
+  console.log(`Error: ${err.message}`);
+  console.log('Shutting down the server due to unhandled promise rejection');
+  server.close(() => {
+    process.exit(1);
+  });
 });
