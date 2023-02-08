@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 
 const connectDatabase = require('./database/database');
 const errorMiddleware = require('./middlewares/errors');
+const ErrorHandler = require('./utils/error-handler');
 
 // Setting up config.env file variables
 dotenv.config({ path: './config.env' });
@@ -28,8 +29,13 @@ const jobs = require('./routes/jobs');
 
 app.use('/api/v1', jobs);
 
-// Middleware to handle errors
+// Handle undhandled routes
+app.all('*', (req, res, next) => {
+  next(new ErrorHandler(`${req.originalUrl} route not found`, 404));
+});
 
+
+// Middleware to handle errors
 app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 3000;
